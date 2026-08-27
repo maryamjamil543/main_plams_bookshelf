@@ -1,0 +1,35 @@
+import 'package:drift/drift.dart';
+import 'package:flutter_base/models/response/sync/BrickKilnIndustry.dart';
+
+@UseRowClass(BrickLinIndustry, constructor: "fromDb")
+class BrickKilnIndustryTable extends Table {
+  IntColumn get id => integer().nullable()();
+
+  TextColumn get serialNumber => text().nullable()();
+
+  TextColumn get unitName => text().nullable()();
+
+  IntColumn get serviceId => integer().nullable()();
+
+  IntColumn get categoryId => integer().nullable()();
+
+  IntColumn get sectorId => integer().nullable()();
+
+  IntColumn get subSectorId => integer().nullable()();
+
+  TextColumn get serviceTitle => text().nullable()();
+
+  TextColumn get categoryTitle => text().nullable()();
+
+  TextColumn get sectorTitle => text().nullable()();
+
+  TextColumn get subSectorTitle => text().nullable()();
+
+  TextColumn get numberOfStack => text().nullable()();
+
+  TextColumn get unitAddress => text().nullable()();
+
+  TextColumn get focalPersonName => text().nullable()();
+
+  TextColumn get focalPersonContact => text().nullable()();
+}

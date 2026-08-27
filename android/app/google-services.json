@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "887685789721",
+    "project_id": "e-enforcement-e09c6",
+    "storage_bucket": "e-enforcement-e09c6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887685789721:android:5b76e2ed3dbc83ba839288",
+        "android_client_info": {
+          "package_name": "com.example.flutter_base"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgmqNxJDUyPymWEbHBwEcdlGV7CS5WeKo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887685789721:android:f197d578cfe4299d839288",
+        "android_client_info": {
+          "package_name": "com.fivetantech.plams"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgmqNxJDUyPymWEbHBwEcdlGV7CS5WeKo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887685789721:android:bce404a56136ef6e839288",
+        "android_client_info": {
+          "package_name": "com.fivetantech.plams"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgmqNxJDUyPymWEbHBwEcdlGV7CS5WeKo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

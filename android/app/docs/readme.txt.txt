@@ -1,0 +1,4 @@
+storePassword=eenforcementapp2025
+keyPassword=eenforcementapp2025
+keyAlias=EEnforcementApp
+storeFile=docs/eenforcementapp.jks

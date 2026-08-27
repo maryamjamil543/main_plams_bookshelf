@@ -1,0 +1,4 @@
+enum BookSource {
+  google,
+  server,
+}

@@ -1,0 +1,127 @@
+
+import 'package:flutter_base/models/response/survey_listing/FormListingResponse.dart';
+import 'package:flutter_base/models/response/survey_listing/SurveyListingData.dart';
+import 'package:flutter_base/models/response/survey_listing/SurveyListingResponse.dart';
+import 'package:flutter_base/models/response/survey_listing/SurveyStats.dart';
+import 'package:flutter_base/models/response/survey_listing/Surveys.dart';
+import 'package:flutter_base/models/response/sync/SyncResponse.dart';
+import 'package:flutter_base/models/states.dart';
+import 'package:flutter_base/providers/api_form_listing_notifier.dart';
+import 'package:flutter_base/repository/auth_repository.dart';
+import 'package:flutter_base/utils/exceptions.dart';
+import 'package:flutter_base/utils/image_assets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../models/request/request_model_listing/anti_dengue_entry.dart';
+import '../models/request/request_model_listing/bricklin_entry.dart';
+import '../models/request/request_model_listing/industrial_pollution_entry.dart';
+import '../models/request/request_model_listing/polythene_bags_entry.dart';
+import '../models/request/request_model_listing/vehicle_pollution_entry.dart';
+import '../models/request/request_model_listing/water_pollution_entry.dart';
+import '../models/response/survey_listing/FormListingData.dart';
+import '../utils/api_state_model.dart';
+import '../utils/strings.dart';
+
+final apiEnforcementListingNotifierProvider =
+    StateNotifierProvider.autoDispose<ApiEnforcementListingNotifier, ApiStatesModel>(
+        (ref) => ApiEnforcementListingNotifier(ref),
+        name: "apiEnforcementListingNotifierProvider");
+final listItemsProvider = StateProvider<List<String>>((ref) {
+  return [
+    "E-Industrial\nMapping",
+    "E-Laboratories",
+    "E-Environmental\nApproval ",
+
+    "E-Enforcement",
+    "	E-Monitoring",
+    "E-Information\nSharing",
+  ];
+});
+final iconListProvider = StateProvider<List<String>>((ref) {
+  return [
+    eIndustrialMappingIcon,
+    eLaboratoriesIcon,
+    eEnvironmentalApprovalIcon,
+    eEnforcementIcon,
+    eMonitoringIcon,
+    eInformationIcon,
+  ];
+});
+final waterPollutionListProvider = StateProvider<List<WaterPollutionEntry>>((ref) => []);
+final industryPollutionDataProvider = StateProvider<List<IndustrialPollutionEntry>>((ref) => []);
+final polytheneBagsListProvider = StateProvider<List<PolytheneBagsEntry>>((ref) => []);
+final brickKilnsListProvider = StateProvider<List<BrickKilnsEntry>>((ref) => []);
+final antiDengueListProvider = StateProvider<List<AntiDengueEntry>>((ref) => []);
+final vehicleListProvider = StateProvider<List<VehiclePollutionEntry>>((ref) => []);
+final surveysProvider = StateProvider<List<Surveys>>((ref) {
+  return [];
+});
+final enforcementDetailsListProvider = StateProvider<List<FormListingData>>((ref) => []);
+final surveyStatsProvider = StateProvider<SurveyStats> ((ref)=> SurveyStats());
+
+//final isFormSubmittedProvider= StateProvider((ref) => false);
+
+
+
+
+
+class ApiEnforcementListingNotifier extends StateNotifier<ApiStatesModel> {
+  final AutoDisposeStateNotifierProviderRef _ref;
+
+  ApiEnforcementListingNotifier(this._ref) : super(ApiStatesModel(States.IDLE, "", null));
+
+  void isLoading(String loadingMessage) {
+    state = ApiStatesModel(States.LOADING, loadingMessage, null);
+  }
+
+  void isError(String errorMessage) {
+    state = ApiStatesModel(States.ERROR, errorMessage, null);
+  }
+
+  void isSuccess(String successMessage) {
+    state = ApiStatesModel(States.DATA, successMessage, null);
+  }
+
+  void isSessionExpired(String sessionExpiredMessage) {
+    state = ApiStatesModel(States.SESSIONEXPIRED, sessionExpiredMessage, null);
+  }
+
+
+
+  Future<void> getApiSyncData() async {
+    try {
+      state = ApiStatesModel(States.LOADING, pleaseWaitSignIn, null);
+      SyncResponse response =
+          await _ref.read(authRepository).apiSyncData();
+      if(response.status!=null && response.status==true){
+        await _ref.read(authRepository).insertSyncData(response);
+      }
+      state = ApiStatesModel(States.DATA, response.message!, response);
+    } on DataException catch (error) {
+      state = ApiStatesModel(States.ERROR, error.message, null);
+    }
+  }
+  Future<void> apiFormEnforcementListingData(int enforcementTypeId) async {
+    try {
+      state = ApiStatesModel(States.LOADING, pleaseWaitSignIn, null);
+
+      FormListingResponse response =
+      await _ref.read(authRepository).apiFormEnforcementListingData(enforcementTypeId:enforcementTypeId );
+
+      if (response.status == true && response.data != null) {
+        final dataList = response.data!;
+        _ref.read(enforcementDetailsListProvider.notifier).state = dataList;
+        _ref.read(enforcementProvider.notifier).state = dataList;
+      }
+
+      state = ApiStatesModel(States.DATA, response.message ?? "Success", response);
+    } on DataException catch (error) {
+      state = ApiStatesModel(States.ERROR, error.message, null);
+    }
+  }
+
+
+
+  Future<void> clearDatabase() async {
+    await _ref.read(authRepository).removeAllData();
+  }
+}
