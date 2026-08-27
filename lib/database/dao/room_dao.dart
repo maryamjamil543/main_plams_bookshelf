@@ -42,8 +42,6 @@ class RoomDao extends DatabaseAccessor<MyDatabase>
         .get();
   }
 
-
-
   @override
   Future<void> insertAllData(List<Room>? list) async {
     return await batch((batch) {

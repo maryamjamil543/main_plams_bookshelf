@@ -11,6 +11,8 @@ import 'package:flutter_base/utils/image_assets.dart';
 import 'package:flutter_base/utils/strings.dart';
 import 'package:flutter_base/utils/utils.dart';
 import 'package:flutter_base/views/book_event/create_event_screen.dart';
+import 'package:flutter_base/views/add_room/add_new_room.dart';
+import 'package:flutter_base/views/add_shelf/add_new_shelf.dart';
 import 'package:flutter_base/views/books_assigned/book_user_assigned_screen.dart';
 import 'package:flutter_base/views/detail_screen/detail_book_screen.dart';
 import 'package:flutter_base/views/qr_scanner_screen/qr_scanner_screen.dart';
@@ -331,6 +333,45 @@ class DashboardScreenState extends ConsumerState<DashboardScreen> {
                   title: favoriteText,
                   isSelect: false,
                 ),
+                //TODO :: permission based add room
+                Visibility(
+                  visible: canAddBook,
+                  child: DrawerItemWidget(
+                    iconWidget: Image.asset(addRoomImage),
+                    iconSize: 38.h,
+                    textSize: 30.sp,
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const AddRoomScreen()),
+                      );
+                    },
+                    title: addRoomText,
+                    isSelect: false,
+                  ),
+                ),
+                //TODO :: permission based add shelf
+                Visibility(
+                  visible: canAddBook,
+                  child: DrawerItemWidget(
+                    iconWidget: Image.asset(addShelfImage),
+                    iconSize: 38.h,
+                    textSize: 30.sp,
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const AddShelfScreen(),
+                        ),
+                      );
+                    },
+                    title: addShelfText,
+                    isSelect: false,
+                  ),
+                ),
+
                 //TODO :: permission based event add
                 Visibility(
                   visible: canAddBook,

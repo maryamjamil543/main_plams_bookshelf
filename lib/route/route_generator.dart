@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/models/response/get_library_response/Library.dart';
 import 'package:flutter_base/views/add_new_book/add_new_book_screen.dart';
+import 'package:flutter_base/views/add_room/add_new_room.dart';
+import 'package:flutter_base/views/add_shelf/add_new_shelf.dart';
 import 'package:flutter_base/views/book_event/create_event_screen.dart';
 import 'package:flutter_base/views/login/forgot_pasword_screen.dart';
 import 'package:flutter_base/views/subscription_user/library_dashboard.dart';
@@ -83,6 +85,12 @@ class RouteGenerator {
       case Routes.BOOK_EVENT:
         return MaterialPageRoute<dynamic>(
             builder: (_) => const EventScreen());
+      case Routes.ADD_ROOM_SCREEN:
+        return MaterialPageRoute<dynamic>(
+            builder: (_) => const AddRoomScreen());
+      case Routes.ADD_ROOM_SCREEN:
+        return MaterialPageRoute<dynamic>(
+            builder: (_) => const AddShelfScreen());
 
       default:
         return _errorRoute();

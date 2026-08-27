@@ -53,4 +53,6 @@ const String eventCalendarImage= "assets/images/event_calendar.png";
 const String qrScannerImage= "assets/images/qr_scanner_image.png";
 const String libraryImage= "assets/images/library_image.png";
 const String addEventImage= "assets/images/add_event.png";
+const String addRoomImage= "assets/images/add_room.png";
+const String addShelfImage= "assets/images/shelf.png";
 

@@ -3,6 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_base/database/my_database.dart';
 import 'package:flutter_base/models/request/book_create/NewBookCreateRequest.dart';
 import 'package:flutter_base/models/request/event_register/EventRegisterRequest.dart';
+import 'package:flutter_base/models/request/room_create/NewRoomCreateRequest.dart';
+import 'package:flutter_base/models/request/shelf_create/NewShelfCreateRequest.dart';
 import 'package:flutter_base/models/request/login/LoginRequestModel.dart';
 import 'package:flutter_base/models/request/subscription_detail/SubscriptionDetailRequestModel.dart';
 import 'package:flutter_base/models/response/book_response/Author.dart';
@@ -192,6 +194,47 @@ class _AuthRepository {
           isMultipart: false,
           formData: await requestModel.toFormData());
       ServerResponse serverResponse = ServerResponse.fromJson(response.data,code: response.statusCode);
+      return serverResponse;
+    } catch (error) {
+      Utils.printInDebug("error: ${error}");
+      throw DataException(message: error.toString());
+    }
+  }
+  //TODO :: Create Room Api
+  Future<ServerResponse> apiCreateRoom(CreateRoomRequestModel requestModel) async {
+    try {
+      Response response = await ref.read(networkRepositoryProvider).getRequest(
+          (EnvironmentConfig.CREATE_ROOM), UrlSuffix.POST, true,
+          data: requestModel.toJson(),
+          isMultipart: false,
+          formData: await requestModel.toFormData());
+      ServerResponse serverResponse = ServerResponse.fromJson(response.data, code: response.statusCode);
+      return serverResponse;
+    } catch (error) {
+      Utils.printInDebug("error: ${error}");
+      throw DataException(message: error.toString());
+    }
+  }
+  //TODO :: Create Shelf Api
+  Future<ServerResponse> apiCreateShelf(
+      CreateShelfRequestModel requestModel) async {
+    try {
+      Response response =
+      await ref.read(networkRepositoryProvider).getRequest(
+        EnvironmentConfig.CREATE_SHELF,
+        UrlSuffix.POST,
+        true,
+        data: requestModel.toJson(),
+        isMultipart: false,
+        formData: await requestModel.toFormData(),
+      );
+
+      ServerResponse serverResponse =
+      ServerResponse.fromJson(
+        response.data,
+        code: response.statusCode,
+      );
+
       return serverResponse;
     } catch (error) {
       Utils.printInDebug("error: ${error}");

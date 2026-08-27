@@ -661,3 +661,4 @@ class Utils {
     return role != null && _canAddBookRoles.contains(role);
   }
 }
+

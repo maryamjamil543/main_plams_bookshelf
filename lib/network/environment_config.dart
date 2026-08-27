@@ -53,6 +53,8 @@ class EnvironmentConfig {
   static const EVENTS = "events";
   static const ATTENDANCE = "attendance";
   static const VERIFY_OTP = "verifyotp";
+  static const CREATE_ROOM = "/rooms";
+  static const CREATE_SHELF = "/shelves";
 
 
   static String userToken = '';

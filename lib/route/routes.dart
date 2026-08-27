@@ -13,5 +13,8 @@ class Routes {
   static const String REGISTER = '/signUp';
   static const String SPLASH = '/';
   static const String DASHBOARD = '/dashboard';
+  static const String ADD_ROOM_SCREEN = '/addRoomScreen';
+  static const String ADD_Shelf_SCREEN = '/addShelfScreen';
+
 
 }
